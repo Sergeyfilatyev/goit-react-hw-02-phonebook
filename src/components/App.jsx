@@ -1,35 +1,38 @@
 import { Component } from 'react';
-import { ContactForm } from './ContactForm/ContactForm';
+import ContactForm from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
-import { Section } from './Section/Section';
+import { Filter } from './Filter/Filter';
+import { nanoid } from 'nanoid';
 class App extends Component {
   state = {
     contacts: [],
-    name: '',
-    number: '',
+    filter: '',
   };
-  submitHandler = event => {
-    console.log(event.target.name.value);
-    console.log(event.target.number.value);
-    event.preventDefault();
-    // const newContact = { name: 'fhk', number: '45456' };
-    // this.setState(prevState => ({
-    //   contacts: [...prevState.contacts, newContact],
-    // }));
-    this.setState({ name: event.target.name.value });
+  addContact = data => {
+    const newContact = { ...data, id: nanoid() };
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
+  };
+  changeFilter = ({ target }) => {
+    this.setState({ filter: target.value });
+  };
+  filterContacts = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
   render() {
     return (
-      <>
-        <Section
-          title={'Phonebook'}
-          children={<ContactForm submitHandler={this.submitHandler} />}
-        />
-        <Section
-          title={'Contacts'}
-          children={<ContactList contacts={this.state.contacts} />}
-        />
-      </>
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm addContact={this.addContact} />
+
+        <h1>Contacts</h1>
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
+        <ContactList contacts={this.filterContacts()} />
+      </div>
     );
   }
 }
