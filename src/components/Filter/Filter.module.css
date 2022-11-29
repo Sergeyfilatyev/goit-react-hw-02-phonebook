@@ -1,13 +1,13 @@
 .label {
   display: block;
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .input {
   display: block;
-  margin: 20px auto;
+  margin: 10px auto;
   width: 300px;
   height: 22px;
   border: 1px solid #000000;
