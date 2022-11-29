@@ -1,4 +1,5 @@
 import s from './Contact.module.css';
+import PropTypes from 'prop-types';
 export function Contact({ id, name, number, deleteContact }) {
   return (
     <li className={s.item}>
@@ -16,3 +17,6 @@ export function Contact({ id, name, number, deleteContact }) {
     </li>
   );
 }
+Contact.propTypes = {
+  deleteContact: PropTypes.func.isRequired,
+};
