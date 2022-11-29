@@ -1,6 +1,8 @@
+import s from './Filter.module.css';
 export function Filter({ value, onChange }) {
   return (
     <input
+      className={s.input}
       value={value}
       onChange={onChange}
       type="text"
